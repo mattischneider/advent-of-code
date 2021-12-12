@@ -14,14 +14,13 @@ class Cave:
 
 def get_paths(caves: dict[str, Cave], start: str = 'start', end: str = 'end', max_small_visits_allowed: int = 1):
     paths_found: list[list[Cave]] = []
-    current_search_paths: list[list[Cave]] = [[caves[start], [caves[start]]]]
+    current_search_paths: list[list[Cave]] = [[caves[start]]]
     while current_search_paths:
-        current_cave, current_path = current_search_paths.pop()
+        current_path = current_search_paths.pop()
+        current_cave = current_path[-1]
         for nc in current_cave.neighbours:
             if nc.name == end:
                 paths_found.append(current_path + [nc])
-                #new_found_path = ','.join(c.name for c in paths_found[-1])
-                #print(f'path found: {new_found_path}')
                 continue
             if nc.name == start:
                 continue
@@ -32,7 +31,7 @@ def get_paths(caves: dict[str, Cave], start: str = 'start', end: str = 'end', ma
                 continue
             if max_small_visits_allowed > 1 and nc.is_small and times_nc_is_visited == max_small_visits_allowed - 1 and other_small_visits == max_small_visits_allowed:
                 continue
-            current_search_paths.append([nc, current_path + [nc]])
+            current_search_paths.append(current_path + [nc])
     return paths_found
 
 
