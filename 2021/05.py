@@ -24,7 +24,7 @@ class Diagram:
 
 
 if __name__ == '__main__':
-    with open("05.txt", 'r') as f:
+    with open("2021/05.txt", 'r') as f:
         lines = [[list(map(lambda x: int(x), c.split(','))) for c in t.split(' -> ')]
                  for t in f.readlines()]
 

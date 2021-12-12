@@ -59,7 +59,7 @@ def decode_value(signal_value: str, decode_dict: dict[str, str]) -> int:
 
 
 if __name__ == '__main__':
-    with open("08.txt", 'r') as f:
+    with open("2021/08.txt", 'r') as f:
         all_signals = [[s.strip().split(' ') for s in l.split(' | ')]
                        for l in f.readlines()]
     print('part1:', sum(sum(1 for a in x[1] if len(

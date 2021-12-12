@@ -1,4 +1,4 @@
-with open("06.txt", 'r') as file:
+with open("2021/06.txt", 'r') as file:
     fish_raw_list = list(map(int, file.read().split(',')))
     fishs = {
         i: sum(1 for r in fish_raw_list if r == i) for i in range(9)

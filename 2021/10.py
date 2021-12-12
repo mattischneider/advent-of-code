@@ -55,7 +55,7 @@ class Line:
 
 
 if __name__ == '__main__':
-    with open("10.txt", 'r') as f:
+    with open("2021/10.txt", 'r') as f:
         lines = [Line(l.strip()) for l in f.readlines()]
 
     print('part1:', sum(l.get_first_illegal_char_point() for l in lines))

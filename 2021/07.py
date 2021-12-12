@@ -6,7 +6,7 @@ def get_fuel_cost(crab_positions: list[int], target_position: int, constant_rate
         return int(sum(n*(n+1)/2 for n in steps))
 
 
-with open("07.txt", 'r') as file:
+with open("2021/07.txt", 'r') as file:
     crab_positions = list(map(int, file.read().split(',')))
 
 print('part1:', min(get_fuel_cost(crab_positions, tp)

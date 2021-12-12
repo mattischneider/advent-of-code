@@ -1,4 +1,4 @@
-with open("03.txt", 'r') as f:
+with open("2021/03.txt", 'r') as f:
     consumptions = f.readlines()
     n = len(consumptions[0].strip())
     m = len(consumptions)

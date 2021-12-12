@@ -60,7 +60,7 @@ class HeightMap:
 
 
 if __name__ == '__main__':
-    with open("09.txt", 'r') as f:
+    with open("2021/09.txt", 'r') as f:
         levels = [[int(c) for c in t.strip()] for t in f.readlines()]
 
     map = HeightMap(levels)

@@ -33,7 +33,7 @@ class BingoBoard:
 
 
 if __name__ == '__main__':
-    with open("04.txt", 'r') as f:
+    with open("2021/04.txt", 'r') as f:
         input_numbers = [int(n) for n in f.readline().split(',')]
         raw_bingo_boards = f.read().split('\n\n')
 

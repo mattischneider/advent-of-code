@@ -1,4 +1,4 @@
-with open("02.txt", 'r') as f:
+with open("2021/02.txt", 'r') as f:
     planned_course = [l.split(' ') for l in f.readlines()]
 
 hor_pos = sum(int(d[1]) for d in planned_course if d[0] == 'forward')
