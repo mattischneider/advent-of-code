@@ -63,7 +63,7 @@ class OctopusGrid:
 
 
 if __name__ == '__main__':
-    with open("11.txt", 'r') as f:
+    with open("2021/11.txt", 'r') as f:
         start_levels = [[int(c) for c in t.strip()] for t in f.readlines()]
 
     grid = OctopusGrid(start_levels)
