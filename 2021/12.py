@@ -12,7 +12,7 @@ class Cave:
         return self.name.islower()
 
 
-def get_paths(caves: dict[str, Cave], start: str = 'start', end: str = 'end', max_small_visits_allowed: int = 1):
+def get_paths(caves: dict[str, Cave], start: str = 'start', end: str = 'end', max_small_visits_allowed: int = 1) -> list[list[Cave]]:
     paths_found: list[list[Cave]] = []
     current_search_paths: list[list[Cave]] = [[caves[start]]]
     while current_search_paths:

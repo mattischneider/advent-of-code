@@ -22,10 +22,10 @@ def fold(dots: list[list[int]], along_axis: str, coord: int) -> list[list[int]]:
     return out
 
 
-def fold_all_instrutions(dots: list[list[int]], fold_instrutions: list[tuple[str, int]]):
+def fold_all_instructions(dots: list[list[int]], fold_instructions: list[tuple[str, int]]) -> list[list[int]]:
     out = dots
     first_fold = True
-    for a, c in fold_instrutions:
+    for a, c in fold_instructions:
         out = fold(out, a, c)
         if first_fold:
             print('part1:', len(set(out)))
@@ -33,7 +33,7 @@ def fold_all_instrutions(dots: list[list[int]], fold_instrutions: list[tuple[str
     return out
 
 
-def print_dots(dots: list[list[int]]):
+def print_dots(dots: list[list[int]]) -> None:
     size = max(x for x, _ in dots)
     print('part2:')
     for y in range(size):
@@ -47,8 +47,8 @@ if __name__ == '__main__':
         dots_raw, fold_raw = f.read().split('\n\n')
         dot_positions = [[int(x) for x in t.split(',')]
                          for t in dots_raw.split('\n')]
-        fold_instrutions = [(d['fold_direction'], d['fold_coord'])
-                            for d in parse.findall('fold along {fold_direction}={fold_coord:d}', fold_raw)]
+        fold_instructions = [(d['fold_direction'], d['fold_coord'])
+                             for d in parse.findall('fold along {fold_direction}={fold_coord:d}', fold_raw)]
 
-    fold_result = fold_all_instrutions(dot_positions, fold_instrutions)
+    fold_result = fold_all_instructions(dot_positions, fold_instructions)
     print_dots(fold_result)
