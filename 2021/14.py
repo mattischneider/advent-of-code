@@ -11,16 +11,16 @@ def polymer_template_to_dict(polymer_template: str) -> defaultdict:
 
 def do_insert(polymer_dict: defaultdict, insertion_rules: list[tuple[str, str]]) -> defaultdict:
     out = polymer_dict.copy()
-    for pair, insert in insertion_rules:
+    for pair, insert_char in insertion_rules:
         if pair in polymer_dict.keys():
-            out[pair[0]+insert] += polymer_dict[pair]
-            out[insert+pair[1]] += polymer_dict[pair]
+            out[pair[0]+insert_char] += polymer_dict[pair]
+            out[insert_char+pair[1]] += polymer_dict[pair]
             out[pair] -= polymer_dict[pair]
     return out
 
 
 def get_counter_of_chars(result: defaultdict, last_letter: str) -> Counter:
-    out = defaultdict(lambda: 0)
+    out = defaultdict(int)
     for a, i in result.items():
         out[a[0]] += i
     out[last_letter] += 1
