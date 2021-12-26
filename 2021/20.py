@@ -12,24 +12,28 @@ class ImageEnhancer:
     def image_size(self) -> int:
         return len(self.image)
 
-    def print_image(self):
+    @property
+    def lit_pixels(self) -> int:
+        return sum(1 for p in self.image for i in p if i == "#")
+
+    def print_image(self) -> None:
         print(f"\nAfter {self.step} steps:")
         for p in self.image:
             print("".join(p))
 
-    def pad_image(self, infinity_symbol):
+    def pad_image(self, infinity_symbol) -> list[list[str]]:
         return (
             [infinity_symbol * (self.image_size + 2)]
             + [infinity_symbol + j + infinity_symbol for j in self.image]
             + [infinity_symbol * (self.image_size + 2)]
         )
 
-    def unpad_image(self):
+    def unpad_image(self) -> list[list[str]]:
         return [
             j[1 : (self.image_size - 1)] for j in self.image[1 : (self.image_size - 1)]
         ]
 
-    def get_9_neighbour_mark(self, idx, idy):
+    def get_9_neighbour_mark(self, idx: int, idy: int) -> str:
         t1 = "." if idy == 0 or idx == 0 else self.image[idx - 1][idy - 1]
         t2 = "." if idx == 0 else self.image[idx - 1][idy]
         t3 = (
@@ -53,11 +57,12 @@ class ImageEnhancer:
         )
         return t1 + t2 + t3 + m1 + m2 + m3 + b1 + b2 + b3
 
-    def apply_algo(self, mark) -> str:
+    def apply_algo(self, mark: str) -> str:
         mark_int = int(mark.replace(".", "0").replace("#", "1"), 2)
         return self.algo[mark_int]
 
-    def enhance(self):
+    def enhance(self) -> None:
+        # double padding and one-time unpadding after enhancing is needed for "infinite" picture
         self.image = self.pad_image(self.image[0][0])
         self.image = self.pad_image(self.image[0][0])
         self.step += 1
@@ -70,11 +75,6 @@ class ImageEnhancer:
             out[idx] = tmp
         self.image = out
         self.image = self.unpad_image()
-        pass
-
-    @property
-    def lit_pixels(self):
-        return sum(1 for p in self.image for i in p if i == "#")
 
 
 if __name__ == "__main__":
