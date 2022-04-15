@@ -6,21 +6,33 @@ class Octopus:
         self.grid_size: int = grid_size
 
     def get_neighbour_positions(self) -> list[list[int]]:
-        directions = [[0, 1], [1, 0], [0, -1], [-1, 0],
-                      [1, 1], [1, -1], [-1, 1], [-1, -1]]
-        return [[self.x_pos + x, self.y_pos + y]
-                for x, y in directions
-                if 0 <= self.x_pos + x < self.grid_size and 0 <= self.y_pos + y < self.grid_size]
+        directions = [
+            [0, 1],
+            [1, 0],
+            [0, -1],
+            [-1, 0],
+            [1, 1],
+            [1, -1],
+            [-1, 1],
+            [-1, -1],
+        ]
+        return [
+            [self.x_pos + x, self.y_pos + y]
+            for x, y in directions
+            if 0 <= self.x_pos + x < self.grid_size and 0 <= self.y_pos + y < self.grid_size
+        ]
 
 
 class OctopusGrid:
-
     def __init__(self, start_levels: list[list[int]]):
         self.step = 0
         self.flashes = 0
         self.grid_size = len(start_levels)
-        self.octopusses: list[Octopus] = [Octopus(start_levels[idx][idy], idx, idy, self.grid_size)
-                                          for idx in range(self.grid_size) for idy in range(self.grid_size)]
+        self.octopusses: list[Octopus] = [
+            Octopus(start_levels[idx][idy], idx, idy, self.grid_size)
+            for idx in range(self.grid_size)
+            for idy in range(self.grid_size)
+        ]
 
     def get_octopus_by_position(self, search_x_pos: int, search_y_pos: int) -> Octopus:
         for o in self.octopusses:
@@ -28,13 +40,12 @@ class OctopusGrid:
                 return o
 
     def print_energy_levels(self):
-        print(f'{self.step=}')
-        print(f'{self.flashes=}')
+        print(f"{self.step=}")
+        print(f"{self.flashes=}")
         for x in range(self.grid_size):
-            oline = [self.get_octopus_by_position(
-                x, y) for y in range(self.grid_size)]
-            print(''.join(str(o.energy_level) for o in oline))
-        print('\n')
+            oline = [self.get_octopus_by_position(x, y) for y in range(self.grid_size)]
+            print("".join(str(o.energy_level) for o in oline))
+        print("\n")
 
     def run_step(self) -> list[Octopus]:
         self.step += 1
@@ -62,13 +73,13 @@ class OctopusGrid:
                 return self.step
 
 
-if __name__ == '__main__':
-    with open("2021/11.txt", 'r') as f:
+if __name__ == "__main__":
+    with open("2021/11.txt", "r") as f:
         start_levels = [[int(c) for c in t.strip()] for t in f.readlines()]
 
     grid = OctopusGrid(start_levels)
     for _ in range(100):
         grid.run_step()
 
-    print('part1:', grid.flashes)
-    print('part2:', grid.get_next_all_flashes_step())
+    print("part1:", grid.flashes)
+    print("part2:", grid.get_next_all_flashes_step())

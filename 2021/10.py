@@ -1,20 +1,20 @@
 OPEN_CLOSE_MAPPING = {
-    ')': '(',
-    ']': '[',
-    '}': '{',
-    '>': '<',
+    ")": "(",
+    "]": "[",
+    "}": "{",
+    ">": "<",
 }
 ILLEGAL_POINTS = {
-    ')': 3,
-    ']': 57,
-    '}': 1197,
-    '>': 25137,
+    ")": 3,
+    "]": 57,
+    "}": 1197,
+    ">": 25137,
 }
 OPEN_BRACKETS_POINTS = {
-    '(': 1,
-    '[': 2,
-    '{': 3,
-    '<': 4,
+    "(": 1,
+    "[": 2,
+    "{": 3,
+    "<": 4,
 }
 
 
@@ -54,13 +54,12 @@ class Line:
         return score
 
 
-if __name__ == '__main__':
-    with open("2021/10.txt", 'r') as f:
-        lines = [Line(l.strip()) for l in f.readlines()]
+if __name__ == "__main__":
+    with open("2021/10.txt", "r") as f:
+        lines = [Line(line.strip()) for line in f.readlines()]
 
-    print('part1:', sum(l.get_first_illegal_char_point() for l in lines))
+    print("part1:", sum(line.get_first_illegal_char_point() for line in lines))
 
-    scores = [l.get_score_for_incomplete_lines()
-              for l in lines if not l.is_corrupted]
+    scores = [line.get_score_for_incomplete_lines() for line in lines if not line.is_corrupted]
     scores.sort()
-    print('part2:', scores[len(scores)//2])
+    print("part2:", scores[len(scores) // 2])
