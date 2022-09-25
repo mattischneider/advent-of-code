@@ -5,8 +5,8 @@ import parse
 
 class Circuit:
     def __init__(self, instruction_booklet: list[str]):
-        self._wires = []
-        self.wire_values = defaultdict(int)
+        self._wire_expressions = []  # unevaluated expressions
+        self.wire_values = defaultdict(int)  # evaluated values
         self.instruction_booklet = instruction_booklet
         self.parse_instructions()
 
@@ -14,8 +14,8 @@ class Circuit:
         for i in self.instruction_booklet:
             self._init_booklet(i)
 
-        while self._wires:
-            for wire_expr in self._wires:
+        while self._wire_expressions:
+            for wire_expr in self._wire_expressions:
                 if (
                     "right" in wire_expr
                     and (wire_expr["left"] in self.wire_values or wire_expr["left"].isdigit())
@@ -45,13 +45,13 @@ class Circuit:
                         self.wire_values[wire_expr["to"]] = self.wire_values[
                             wire_expr["left"]
                         ] >> int(wire_expr["right"])
-                    self._wires.remove(wire_expr)
+                    self._wire_expressions.remove(wire_expr)
                 if wire_expr["op"] == "NOT" and wire_expr["left"] in self.wire_values:
                     self.wire_values[wire_expr["to"]] = self.wire_values[wire_expr["left"]] ^ 65535
-                    self._wires.remove(wire_expr)
+                    self._wire_expressions.remove(wire_expr)
                 if wire_expr["op"] == "ASSIGNMENT" and wire_expr["left"] in self.wire_values:
                     self.wire_values[wire_expr["to"]] = self.wire_values[wire_expr["left"]]
-                    self._wires.remove(wire_expr)
+                    self._wire_expressions.remove(wire_expr)
 
     def _init_booklet(self, instruction: str) -> None:
         value_settings = parse.parse("{value:d} -> {to}", instruction)
@@ -82,7 +82,7 @@ class Circuit:
                     "op": "ASSIGNMENT",
                     "left": wire_settings["left"],
                 }
-            self._wires.append(d)
+            self._wire_expressions.append(d)
 
 
 def test_circuit():
