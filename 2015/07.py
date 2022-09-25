@@ -16,13 +16,6 @@ class Circuit:
 
         while self._wires:
             for wire_expr in self._wires:
-                if len(self.wire_values) > 18:
-                    if (
-                        "right" in wire_expr
-                        and len(wire_expr["right"]) == 1
-                        and len(wire_expr["left"]) == 1
-                    ):
-                        pass
                 if (
                     "right" in wire_expr
                     and (wire_expr["left"] in self.wire_values or wire_expr["left"].isdigit())
