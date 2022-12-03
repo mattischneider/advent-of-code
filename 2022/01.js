@@ -3,7 +3,7 @@ var fs = require('fs');
 function get_sorted_elv_calories(filename) {
     var data = fs.readFileSync(filename, 'utf8');
     let elv_foods = data.split("\n\n")
-    let elv_calories = Array(elv_foods.length)
+    let elv_calories = new Int32Array(elv_foods.length)
     for (let i = 0; i < elv_foods.length; i++) {
         let sum = 0
         let calory_entries = elv_foods[i].split('\n')
@@ -12,9 +12,7 @@ function get_sorted_elv_calories(filename) {
         }
         elv_calories[i] = sum
     }
-    return elv_calories.sort(function (a, b) {
-        return a - b;
-    }).reverse()
+    return elv_calories.sort().reverse()
 }
 
 function get_max_calories(sorted_elv_calories) {
