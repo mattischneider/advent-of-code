@@ -1,36 +1,31 @@
 var fs = require('fs');
 
-function get_sorted_elv_calories(filename) {
+function getSortedElvCalories(filename) {
     var data = fs.readFileSync(filename, 'utf8');
-    let elv_foods = data.split("\n\n")
-    let elv_calories = new Int32Array(elv_foods.length)
-    for (let i = 0; i < elv_foods.length; i++) {
-        let sum = 0
-        let calory_entries = elv_foods[i].split('\n')
-        for (let j = 0; j < calory_entries.length; j++) {
-            sum += parseInt(calory_entries[j]);
-        }
-        elv_calories[i] = sum
-    }
-    return elv_calories.sort().reverse()
+    let elvFoods = data.split("\n\n")
+    let elvCalories = elvFoods.map(i => i.split('\n').map(numStr => parseInt(numStr)).reduce((a, b) => a + b));
+    let typedElvCalories = Int32Array.from(elvCalories)
+    return typedElvCalories.sort().reverse()
 }
 
-function get_max_calories(sorted_elv_calories) {
-    return sorted_elv_calories[0]
+function getMaxCalories(sorted_elvCalories) {
+    return sorted_elvCalories[0]
 }
 
-function get_top3_calories_sum(sorted_elv_calories) {
-    return sorted_elv_calories[0] + sorted_elv_calories[1] + sorted_elv_calories[2]
+function getTop3CaloriesSum(sorted_elvCalories) {
+    return sorted_elvCalories[0] + sorted_elvCalories[1] + sorted_elvCalories[2]
 }
 
-let test_elves = get_sorted_elv_calories('2022/01_test')
-let part1_test = get_max_calories(test_elves)
+let test_elves = getSortedElvCalories('2022/01_test')
+let part1_test = getMaxCalories(test_elves)
+console.assert(test_elves == [24000, 11000, 10000, 6000, 4000])  // fails, whyyy?
+console.assert(test_elves == Int32Array.from([24000, 11000, 10000, 6000, 4000])) // also fails.. why?
 console.assert(part1_test == 24000)
-let part2_test = get_top3_calories_sum(test_elves)
+let part2_test = getTop3CaloriesSum(test_elves)
 console.assert(part2_test == 45000)
 
-let sorted_elves_calories = get_sorted_elv_calories('2022/01_input')
-let part1 = get_max_calories(sorted_elves_calories)
+let sorted_elves_calories = getSortedElvCalories('2022/01_input')
+let part1 = getMaxCalories(sorted_elves_calories)
 console.log('part1:', part1);
-let part2 = get_top3_calories_sum(sorted_elves_calories)
+let part2 = getTop3CaloriesSum(sorted_elves_calories)
 console.log('part2:', part2);
