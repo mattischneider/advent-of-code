@@ -1,89 +1,87 @@
-var fs = require('fs');
+var fs = require("fs");
 
 function getGames(filename) {
-    var data = fs.readFileSync(filename, 'utf8');
-    return data.split("\n");
+  var data = fs.readFileSync(filename, "utf8");
+  return data.split("\n");
 }
 
 function getScore(game) {
-    let score = 0
+  let score = 0;
 
-    if (game[2] == 'X') {
-        score += 1
-    }
-    if (game[2] == 'Y') {
-        score += 2
-    }
-    if (game[2] == 'Z') {
-        score += 3
-    }
+  if (game[2] == "X") {
+    score += 1;
+  }
+  if (game[2] == "Y") {
+    score += 2;
+  }
+  if (game[2] == "Z") {
+    score += 3;
+  }
 
-    if (game[0] == 'A' && game[2] == 'X') {
-        score += 3
-    }
-    if (game[0] == 'B' && game[2] == 'Y') {
-        score += 3
-    }
-    if (game[0] == 'C' && game[2] == 'Z') {
-        score += 3
-    }
+  if (game[0] == "A" && game[2] == "X") {
+    score += 3;
+  }
+  if (game[0] == "B" && game[2] == "Y") {
+    score += 3;
+  }
+  if (game[0] == "C" && game[2] == "Z") {
+    score += 3;
+  }
 
-    if (game[0] == 'A' && game[2] == 'Y') {
-        score += 6
-    }
-    if (game[0] == 'B' && game[2] == 'Z') {
-        score += 6
-    }
-    if (game[0] == 'C' && game[2] == 'X') {
-        score += 6
-    }
+  if (game[0] == "A" && game[2] == "Y") {
+    score += 6;
+  }
+  if (game[0] == "B" && game[2] == "Z") {
+    score += 6;
+  }
+  if (game[0] == "C" && game[2] == "X") {
+    score += 6;
+  }
 
-    return score
+  return score;
 }
 
 function adjustGameScore(game) {
-    if (game[0] == 'A' && game[2] == 'X') {
-        return getScore(game.replace('X', 'Z'))
-    }
-    if (game[0] == 'A' && game[2] == 'Y') {
-        return getScore(game.replace('Y', 'X'))
-    }
-    if (game[0] == 'A' && game[2] == 'Z') {
-        return getScore(game.replace('Z', 'Y'))
-    }
-    if (game[0] == 'B') {
-        return getScore(game)
-    }
-    if (game[0] == 'C' && game[2] == 'X') {
-        return getScore(game.replace('X', 'Y'))
-    }
-    if (game[0] == 'C' && game[2] == 'Y') {
-        return getScore(game.replace('Y', 'Z'))
-    }
-    if (game[0] == 'C' && game[2] == 'Z') {
-        return getScore(game.replace('Z', 'X'))
-    }
+  if (game[0] == "A" && game[2] == "X") {
+    return getScore(game.replace("X", "Z"));
+  }
+  if (game[0] == "A" && game[2] == "Y") {
+    return getScore(game.replace("Y", "X"));
+  }
+  if (game[0] == "A" && game[2] == "Z") {
+    return getScore(game.replace("Z", "Y"));
+  }
+  if (game[0] == "B") {
+    return getScore(game);
+  }
+  if (game[0] == "C" && game[2] == "X") {
+    return getScore(game.replace("X", "Y"));
+  }
+  if (game[0] == "C" && game[2] == "Y") {
+    return getScore(game.replace("Y", "Z"));
+  }
+  if (game[0] == "C" && game[2] == "Z") {
+    return getScore(game.replace("Z", "X"));
+  }
 
-    return score
+  return score;
 }
 
 function getTotalScore(games) {
-    return games.map(getScore).reduce((a, b) => a + b);
+  return games.map(getScore).reduce((a, b) => a + b);
 }
 function getTotalScorePart2(games) {
-    return games.map(adjustGameScore).reduce((a, b) => a + b);
+  return games.map(adjustGameScore).reduce((a, b) => a + b);
 }
 
-let test_games = getGames('2022/02_test')
-console.assert(getScore(test_games[0]) == 8)
-console.assert(getScore(test_games[1]) == 1)
-console.assert(getScore(test_games[2]) == 6)
-console.assert(getTotalScore(test_games) == 15)
-console.assert(adjustGameScore(test_games[0]) == 4)
-console.assert(adjustGameScore(test_games[1]) == 1)
-console.assert(adjustGameScore(test_games[2]) == 7)
-console.assert(getTotalScorePart2(test_games) == 12)
+module.exports = {
+  getGames,
+  getScore,
+  adjustGameScore,
+  getTotalScore,
+  getTotalScorePart2,
+};
 
-let games = getGames('2022/02_input')
-console.log('part1:', getTotalScore(games));
-console.log('part2:', getTotalScorePart2(games));
+let games = getGames("2022/02_input");
+console.log("part1:", getTotalScore(games));
+console.log("part2:", getTotalScorePart2(games));
