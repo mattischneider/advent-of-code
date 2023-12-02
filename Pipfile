@@ -7,12 +7,12 @@ name = "pypi"
 parse = "*"
 isort = "*"
 pytest = "*"
-
-[dev-packages]
 ruff = "*"
 
+[dev-packages]
+
 [requires]
-python_version = "3.12"
+python_version = "3.11"
 
 [pipenv]
 allow_prereleases = true
