@@ -57,7 +57,7 @@ def main():
     part_1 = network.get_number_of_steps()
     print(f"part1: {part_1} (should be 19631)")
     part_2 = network.get_number_of_ghost_steps()
-    print(f"part2: {part_2} (should be )")
+    print(f"part2: {part_2} (should be 21003205388413)")
 
 
 if __name__ == "__main__":
