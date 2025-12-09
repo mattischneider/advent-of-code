@@ -1,0 +1,7 @@
+[project]
+name = "advent-of-code"
+version = "0.1.0"
+description = "Well, this is my AoC repo."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
